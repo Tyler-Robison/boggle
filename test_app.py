@@ -29,6 +29,19 @@ class BoggleTestCase(TestCase):
             self.assertIn('<h1>Boggle!</h1>', html)
             self.assertIn('board', session)
 
+            # import pdb
+            # pdb.set_trace()
+
+            #Use pdb to see res.data
+            #have to use b-string to check inside res.data
+            self.assertIn(b'id="score-para">Your Score:', res.data)
+            self.assertIn(b'id="guess-form">\n<bu', res.data)
+            self.assertIn(b'<button id="guess-button">Guess', res.data)
+
+            #These shouldn't be in session yet on a new server
+            self.assertIsNone(session.get('highscore'))
+            self.assertIsNone(session.get('times_played'))
+
     def test_check_guess(self):
         with app.test_client() as client:
             with client.session_transaction() as sess:
@@ -58,3 +71,16 @@ class BoggleTestCase(TestCase):
             self.assertEqual(session['times_played'], 1)
             self.assertEqual(session['highscore'], 10)
 
+
+    def test_session(self):
+        with app.test_client() as client:
+
+            with client.session_transaction() as change_session:
+                change_session['times_played'] = 57
+                change_session['highscore'] = 6
+ 
+            res = client.post('/check-score', json={'score':4})
+            self.assertEqual(res.status_code, 200)
+
+            self.assertEqual(session['times_played'], 58)
+            self.assertEqual(session['highscore'], 6)
