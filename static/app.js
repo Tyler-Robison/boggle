@@ -73,9 +73,9 @@ class BoggleGame {
         timerPara.innerText = 'Time is up!'
         $('#guess-button').off()
 
-        const res = await axios.post('/check-score', { score: this.total });
+        const res = await axios.post('/check-score', { 'score': this.total });
         console.log('response: ', res)
-        if (res.data === 'highscore'){
+        if (res.data.result === 'highscore'){
             document.querySelector('#highscore-para').innerText = 'New Record!'
         } else {
             document.querySelector('#highscore-para').innerText = 'Not Record!'
