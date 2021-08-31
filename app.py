@@ -49,8 +49,8 @@ def check_score():
     Updates highscore if needed, tells front-end if there is new highscore
     Updates times_played 
     """
-    import pdb
-    pdb.set_trace()
+    # import pdb
+    # pdb.set_trace()
 
     score = request.json['score']
 

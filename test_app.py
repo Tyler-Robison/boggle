@@ -52,7 +52,7 @@ class BoggleTestCase(TestCase):
 
     def test_check_score(self):
         with app.test_client() as client:
-            res = client.post('/check-score', data={'score':10})
+            res = client.post('/check-score', json={'score':10})
             self.assertEqual(res.status_code, 200)
 
             self.assertEqual(session['times_played'], 1)
