@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% block title %} Landing Page {% endblock %}
+
+{% block main %}
+
+<h1>Boggle!</h1>
+
+<table>
+    {% for row in board %}
+    <tr>
+        {% for char in row %}
+
+        <td>{{char}}</td>
+
+        {%endfor%}
+    </tr>
+    {%endfor%}
+</table>
+
+<p id="result-para"></p>
+<p id="score-para">Your Score: <span id="score-span">0</span> </p>
+<p id="timer-para"></p>
+<p id="highscore-para"></p>
+
+
+<input type="text" placeholder="Enter Word" id="guess-form">
+<button id="guess-button">Guess</button>
+
+{% endblock %}
